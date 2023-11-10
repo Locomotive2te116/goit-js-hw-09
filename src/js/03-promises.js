@@ -47,4 +47,5 @@ function createPromise(position, delay) {
     }, delay)
   });
   return prommis;
+  //console.log()
 }
