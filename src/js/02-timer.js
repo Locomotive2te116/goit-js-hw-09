@@ -28,9 +28,11 @@ flatpickr(input, {
       startButton.addEventListener('click', () => {
         const interval = setInterval(() => {
           countDifference(diff);
+          input.disabled = true;
           diff -= 1000;
           if (diff < 0) {
             clearInterval(interval);
+            input.disabled = false;
             return;
           }
         }, 1000);
@@ -41,7 +43,7 @@ flatpickr(input, {
 });
 function countDifference(diff) {
   const { days, hours, minutes, seconds } = getTimeComponents(diff);
-  daysOutput.textContent = addLeadingZero(days0);
+  daysOutput.textContent = addLeadingZero(days);
   hoursOutput.textContent = addLeadingZero(hours);
   minutesOutput.textContent = addLeadingZero(minutes);
   secondsOutput.textContent = addLeadingZero(seconds);
