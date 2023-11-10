@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import Notiflix from 'notiflix';
 
 const input = document.querySelector('#datetime-picker');
 const startButton = document.querySelector('[data-start]');
@@ -21,7 +22,7 @@ flatpickr(input, {
     userDate = selectedDates[0];
     let diff = userDate - currentDate;
     if (diff < 0) {
-      window.alert('Please choose a date in the future');
+      Notiflix.Notify.warning('Обрана не коректна дата, оберіть дату з майбутьнього)');
     } else {
       startButton.removeAttribute('disabled');
       startButton.addEventListener('click', () => {
@@ -40,10 +41,10 @@ flatpickr(input, {
 });
 function countDifference(diff) {
   const { days, hours, minutes, seconds } = getTimeComponents(diff);
-  daysOutput.textContent = days;
-  hoursOutput.textContent = hours;
-  minutesOutput.textContent = minutes;
-  secondsOutput.textContent = seconds;
+  daysOutput.textContent = addLeadingZero(days0);
+  hoursOutput.textContent = addLeadingZero(hours);
+  minutesOutput.textContent = addLeadingZero(minutes);
+  secondsOutput.textContent = addLeadingZero(seconds);
 }
 
 function getTimeComponents(diff) {
@@ -58,4 +59,13 @@ function getTimeComponents(diff) {
     minutes: minutes,
     seconds: seconds,
   };
+}
+
+
+function addLeadingZero(arg) {
+  arg = arg.toString();
+  if (arg.length < 3) {
+    return arg.padStart(2, '0');
+  }
+  return arg;
 }
